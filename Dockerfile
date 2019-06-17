@@ -15,7 +15,8 @@ WORKDIR /data
 
 COPY *.py /data/
 COPY build.sh /data/
-
-RUN chmod 0777 /data/*
-
+COPY log4j.properties /data/
+COPY spark.conf /data/
+RUN chmod 0777 /data/*.sh
+RUN chmod 0777 /data/*.py
 ENTRYPOINT  ["./build.sh"]

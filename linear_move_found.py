@@ -55,14 +55,13 @@ if __name__ == "__main__":
         .getOrCreate()
 
     sc = spark.sparkContext
-    sc.setLogLevel("WARN")
     
     input_df = spark.read.load(args.input,format="json")
 
     found_fn = udf(found,IntegerType())    
     new_table = input_df.withColumn("type",found_fn("points"))
     linear_objects = new_table.where(new_table.type == 1)
-    linear_objects.show(10, truncate = False)
+    linear_objects.show()
     print("Found object:",linear_objects.count())
 
 
